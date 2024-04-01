@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,21 @@
 		360D97BE2BB6B72200589F76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97BD2BB6B72200589F76 /* ContentView.swift */; };
 		360D97C02BB6B72500589F76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 360D97BF2BB6B72500589F76 /* Assets.xcassets */; };
 		360D97C32BB6B72500589F76 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 360D97C22BB6B72500589F76 /* Preview Assets.xcassets */; };
+		360D97CB2BB6CA4100589F76 /* NW_DDNP_115_kit_just_bass_G#min.wav in Resources */ = {isa = PBXBuildFile; fileRef = 360D97C92BB6CA4000589F76 /* NW_DDNP_115_kit_just_bass_G#min.wav */; };
+		360D97CD2BB6E9E800589F76 /* SingleAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97CC2BB6E9E800589F76 /* SingleAudioPlayerView.swift */; };
+		360D97CF2BB6EE8B00589F76 /* SimultaneousAudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97CE2BB6EE8B00589F76 /* SimultaneousAudioPlayerView.swift */; };
+		360D97D32BB6F0E100589F76 /* OS_VLV_115_Amin_Silk_Stack__Original_.wav in Resources */ = {isa = PBXBuildFile; fileRef = 360D97D02BB6F0E100589F76 /* OS_VLV_115_Amin_Silk_Stack__Original_.wav */; };
+		360D97D42BB6F0E100589F76 /* OS_UTP2_115_Cmin_Hope_Stack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 360D97D12BB6F0E100589F76 /* OS_UTP2_115_Cmin_Hope_Stack.wav */; };
+		360D97D52BB6F0E100589F76 /* OS_VLV_115_Drum_Loop_3__Full_.wav in Resources */ = {isa = PBXBuildFile; fileRef = 360D97D22BB6F0E100589F76 /* OS_VLV_115_Drum_Loop_3__Full_.wav */; };
+		360D97D72BB6F65900589F76 /* PlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97D62BB6F65900589F76 /* PlayerButtonView.swift */; };
+		3665AD652BBAF3CE00F40FC4 /* AudioEnginePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665AD642BBAF3CE00F40FC4 /* AudioEnginePlayerView.swift */; };
+		3665AD672BBB230200F40FC4 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665AD662BBB230200F40FC4 /* Resources.swift */; };
+		36DACA242BB83597009807FE /* AudioUnitCompositionPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DACA232BB83597009807FE /* AudioUnitCompositionPlayerView.swift */; };
+		36DACA272BB83E07009807FE /* DBAudioTools in Frameworks */ = {isa = PBXBuildFile; productRef = 36DACA262BB83E07009807FE /* DBAudioTools */; };
+		36DACA292BB85C8C009807FE /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DACA282BB85C8C009807FE /* FilterView.swift */; };
+		36DACA2B2BB86477009807FE /* DelayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DACA2A2BB86477009807FE /* DelayView.swift */; };
+		36DACA2D2BB8671E009807FE /* EffectOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DACA2C2BB8671E009807FE /* EffectOverlayView.swift */; };
+		36DACA2F2BB890DC009807FE /* DummyUpdateEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DACA2E2BB890DC009807FE /* DummyUpdateEffects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +34,20 @@
 		360D97BD2BB6B72200589F76 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		360D97BF2BB6B72500589F76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		360D97C22BB6B72500589F76 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		360D97C92BB6CA4000589F76 /* NW_DDNP_115_kit_just_bass_G#min.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "NW_DDNP_115_kit_just_bass_G#min.wav"; sourceTree = "<group>"; };
+		360D97CC2BB6E9E800589F76 /* SingleAudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleAudioPlayerView.swift; sourceTree = "<group>"; };
+		360D97CE2BB6EE8B00589F76 /* SimultaneousAudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimultaneousAudioPlayerView.swift; sourceTree = "<group>"; };
+		360D97D02BB6F0E100589F76 /* OS_VLV_115_Amin_Silk_Stack__Original_.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OS_VLV_115_Amin_Silk_Stack__Original_.wav; sourceTree = "<group>"; };
+		360D97D12BB6F0E100589F76 /* OS_UTP2_115_Cmin_Hope_Stack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OS_UTP2_115_Cmin_Hope_Stack.wav; sourceTree = "<group>"; };
+		360D97D22BB6F0E100589F76 /* OS_VLV_115_Drum_Loop_3__Full_.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = OS_VLV_115_Drum_Loop_3__Full_.wav; sourceTree = "<group>"; };
+		360D97D62BB6F65900589F76 /* PlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButtonView.swift; sourceTree = "<group>"; };
+		3665AD642BBAF3CE00F40FC4 /* AudioEnginePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEnginePlayerView.swift; sourceTree = "<group>"; };
+		3665AD662BBB230200F40FC4 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		36DACA232BB83597009807FE /* AudioUnitCompositionPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitCompositionPlayerView.swift; sourceTree = "<group>"; };
+		36DACA282BB85C8C009807FE /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		36DACA2A2BB86477009807FE /* DelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayView.swift; sourceTree = "<group>"; };
+		36DACA2C2BB8671E009807FE /* EffectOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectOverlayView.swift; sourceTree = "<group>"; };
+		36DACA2E2BB890DC009807FE /* DummyUpdateEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyUpdateEffects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36DACA272BB83E07009807FE /* DBAudioTools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,6 +65,7 @@
 		360D97AF2BB6B72200589F76 = {
 			isa = PBXGroup;
 			children = (
+				360D97CA2BB6CA4000589F76 /* Audio */,
 				360D97BA2BB6B72200589F76 /* AudioFoundationSample */,
 				360D97B92BB6B72200589F76 /* Products */,
 			);
@@ -51,10 +82,13 @@
 		360D97BA2BB6B72200589F76 /* AudioFoundationSample */ = {
 			isa = PBXGroup;
 			children = (
+				360D97D92BB6FF8F00589F76 /* Subviews */,
+				360D97D82BB6FF7800589F76 /* Views */,
 				360D97BB2BB6B72200589F76 /* AudioFoundationSampleApp.swift */,
 				360D97BD2BB6B72200589F76 /* ContentView.swift */,
 				360D97BF2BB6B72500589F76 /* Assets.xcassets */,
 				360D97C12BB6B72500589F76 /* Preview Content */,
+				3665AD662BBB230200F40FC4 /* Resources.swift */,
 			);
 			path = AudioFoundationSample;
 			sourceTree = "<group>";
@@ -63,8 +97,42 @@
 			isa = PBXGroup;
 			children = (
 				360D97C22BB6B72500589F76 /* Preview Assets.xcassets */,
+				36DACA2E2BB890DC009807FE /* DummyUpdateEffects.swift */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		360D97CA2BB6CA4000589F76 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				360D97D12BB6F0E100589F76 /* OS_UTP2_115_Cmin_Hope_Stack.wav */,
+				360D97D02BB6F0E100589F76 /* OS_VLV_115_Amin_Silk_Stack__Original_.wav */,
+				360D97D22BB6F0E100589F76 /* OS_VLV_115_Drum_Loop_3__Full_.wav */,
+				360D97C92BB6CA4000589F76 /* NW_DDNP_115_kit_just_bass_G#min.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		360D97D82BB6FF7800589F76 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				360D97CC2BB6E9E800589F76 /* SingleAudioPlayerView.swift */,
+				360D97CE2BB6EE8B00589F76 /* SimultaneousAudioPlayerView.swift */,
+				3665AD642BBAF3CE00F40FC4 /* AudioEnginePlayerView.swift */,
+				36DACA232BB83597009807FE /* AudioUnitCompositionPlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		360D97D92BB6FF8F00589F76 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				360D97D62BB6F65900589F76 /* PlayerButtonView.swift */,
+				36DACA282BB85C8C009807FE /* FilterView.swift */,
+				36DACA2A2BB86477009807FE /* DelayView.swift */,
+				36DACA2C2BB8671E009807FE /* EffectOverlayView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +151,9 @@
 			dependencies = (
 			);
 			name = AudioFoundationSample;
+			packageProductDependencies = (
+				36DACA262BB83E07009807FE /* DBAudioTools */,
+			);
 			productName = AudioFoundationSample;
 			productReference = 360D97B82BB6B72200589F76 /* AudioFoundationSample.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +182,9 @@
 				Base,
 			);
 			mainGroup = 360D97AF2BB6B72200589F76;
+			packageReferences = (
+				36DACA252BB83E07009807FE /* XCLocalSwiftPackageReference "../../DBAudioTools" */,
+			);
 			productRefGroup = 360D97B92BB6B72200589F76 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,7 +199,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360D97D52BB6F0E100589F76 /* OS_VLV_115_Drum_Loop_3__Full_.wav in Resources */,
 				360D97C32BB6B72500589F76 /* Preview Assets.xcassets in Resources */,
+				360D97D42BB6F0E100589F76 /* OS_UTP2_115_Cmin_Hope_Stack.wav in Resources */,
+				360D97D32BB6F0E100589F76 /* OS_VLV_115_Amin_Silk_Stack__Original_.wav in Resources */,
+				360D97CB2BB6CA4100589F76 /* NW_DDNP_115_kit_just_bass_G#min.wav in Resources */,
 				360D97C02BB6B72500589F76 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +215,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36DACA292BB85C8C009807FE /* FilterView.swift in Sources */,
+				36DACA242BB83597009807FE /* AudioUnitCompositionPlayerView.swift in Sources */,
 				360D97BE2BB6B72200589F76 /* ContentView.swift in Sources */,
+				360D97CF2BB6EE8B00589F76 /* SimultaneousAudioPlayerView.swift in Sources */,
+				36DACA2B2BB86477009807FE /* DelayView.swift in Sources */,
+				360D97CD2BB6E9E800589F76 /* SingleAudioPlayerView.swift in Sources */,
 				360D97BC2BB6B72200589F76 /* AudioFoundationSampleApp.swift in Sources */,
+				3665AD652BBAF3CE00F40FC4 /* AudioEnginePlayerView.swift in Sources */,
+				360D97D72BB6F65900589F76 /* PlayerButtonView.swift in Sources */,
+				3665AD672BBB230200F40FC4 /* Resources.swift in Sources */,
+				36DACA2F2BB890DC009807FE /* DummyUpdateEffects.swift in Sources */,
+				36DACA2D2BB8671E009807FE /* EffectOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +368,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +398,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -344,6 +434,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		36DACA252BB83E07009807FE /* XCLocalSwiftPackageReference "../../DBAudioTools" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../DBAudioTools;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		36DACA262BB83E07009807FE /* DBAudioTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DBAudioTools;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 360D97B02BB6B72200589F76 /* Project object */;
 }
