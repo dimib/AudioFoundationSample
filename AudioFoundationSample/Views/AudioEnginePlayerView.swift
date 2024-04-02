@@ -80,9 +80,13 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
         case playerCreation
     }
     
-    @Published var useSpeaker = true {
+    @Published var useSpeaker = false {
         didSet {
+            for player in 0...3 {
+                stop(player: player)
+            }
             configure()
+            createEngines()
         }
     }
     @Published var isPlaying = [false, false, false, false]
@@ -98,15 +102,6 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
             print("💀 Error setting up audio session")
         }
     }
-    
-    deinit {
-//        for player in engines {
-//            if let playerNode = player.attachedNodes.first(where: { $0 is AVAudioPlayerNode}) as? AVAudioPlayerNode {
-//                player.disconnectNodeInput(playerNode)
-//                player.detach(playerNode)
-//            }
-//        }
-    }
 
     func createEngines() {
         do {
@@ -117,13 +112,15 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
     }
     
     func createEngine(resource: String) throws -> AVAudioEngine {
+
         guard let url = Bundle.main.url(forResource: resource, withExtension: nil),
               let audioFile = try? AVAudioFile(forReading: url),
-              let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length))
+              let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat,
+                                            frameCapacity: AVAudioFrameCount(audioFile.length))
         else {
             throw PlayerError.playerCreation
         }
-        
+            
         try audioFile.read(into: buffer)
 
         let engine = AVAudioEngine()
@@ -132,6 +129,9 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
         engine.connect(playerNode, to: engine.outputNode, format: audioFile.processingFormat)
         engine.prepare()
         playerNode.scheduleBuffer(buffer, at: nil, options: [.loops])
+        
+        playerNode.scheduleFile(audioFile, at: nil)
+        
         try engine.start()
         return engine
     }
