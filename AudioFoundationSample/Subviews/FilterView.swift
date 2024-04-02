@@ -16,7 +16,7 @@ struct FilterView: View {
 
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text("C: ")
                     .font(.title2)
@@ -28,6 +28,7 @@ struct FilterView: View {
                 Slider(value: $resonance, in: -20...40)
             }
         }
+        .background(Color.gray)
         .onChange(of: cutoff) { oldValue, newValue in
             action(newValue, resonance, number)
         }

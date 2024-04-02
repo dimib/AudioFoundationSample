@@ -33,9 +33,20 @@ struct ContentView: View {
                 .cornerRadius(20)
                 .padding(.horizontal, 20)
             }
-            NavigationLink(destination: { AudioEnginePlayerView() }) {
+            NavigationLink(destination: { AudioEnginePlayerView(audioPlayer: AudioEnginePlayer()) }) {
                 VStack {
                     Text("Audio Engine Player")
+                        .tint(.white)
+                        .font(.title)
+                }
+                .frame(maxWidth: .infinity, minHeight: 80)
+                .background(.gray)
+                .cornerRadius(20)
+                .padding(.horizontal, 20)
+            }
+            NavigationLink(destination: { AudioEnginePlayerView(audioPlayer: AudioEnginePlayer(withEffects: true)) }) {
+                VStack {
+                    Text("Audio Engine w/ effects")
                         .tint(.white)
                         .font(.title)
                 }

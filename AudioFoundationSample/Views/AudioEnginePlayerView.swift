@@ -10,17 +10,28 @@ import AVFAudio
 import SwiftUI
 
 struct AudioEnginePlayerView: View {
-    @StateObject private var audioPlayer = AudioEnginePlayer()
+    @StateObject var audioPlayer: AudioEnginePlayer
 
     var body: some View {
         VStack {
-            HStack(spacing: 48) {
-                PlayerButtonView(number: 0, title: "Bass", isPlaying: audioPlayer.isPlaying[0]) { play, number in
-                    audioPlayer.play(play: play, player: number)
+            HStack(spacing: 16) {
+                VStack {
+                    PlayerButtonView(number: 0, title: "Bass", isPlaying: audioPlayer.isPlaying[0], action: audioPlayer.play)
+                    if audioPlayer.withEffects {
+                        VStack(spacing: 0) {
+                            FilterView(number: 0, action: audioPlayer.lowPass)
+                            DistortionView(number: 0, action: audioPlayer.distortion)
+                        }
+                    }
                 }
-
-                PlayerButtonView(number: 1, title: "Drums", isPlaying: audioPlayer.isPlaying[1]) { play, number in
-                    audioPlayer.play(play: play, player: number)
+                VStack {
+                    PlayerButtonView(number: 1, title: "Drums", isPlaying: audioPlayer.isPlaying[1], action: audioPlayer.play)
+                    if audioPlayer.withEffects {
+                        VStack(spacing: 0) {
+                            FilterView(number: 1, action: audioPlayer.lowPass)
+                            DistortionView(number: 1, action: audioPlayer.distortion)
+                        }
+                    }
                 }
             }
             HStack(spacing: 24) {
@@ -46,12 +57,25 @@ struct AudioEnginePlayerView: View {
             .padding(.vertical, 42)
 
             HStack(spacing: 48) {
-                PlayerButtonView(number: 2, title: "Hope Stack", isPlaying: audioPlayer.isPlaying[2]) { play, number in
-                    audioPlayer.play(play: play, player: number)
-                }
+                VStack {
+                    PlayerButtonView(number: 2, title: "Hope Stack", isPlaying: audioPlayer.isPlaying[2], action: audioPlayer.play)
+                    if audioPlayer.withEffects {
+                        VStack(spacing: 0) {
+                            FilterView(number: 2, action: audioPlayer.lowPass)
+                            DistortionView(number: 2, action: audioPlayer.distortion)
+                        }
+                    }
 
-                PlayerButtonView(number: 3, title: "Silk Stack", isPlaying: audioPlayer.isPlaying[3]) { play, number in
-                    audioPlayer.play(play: play, player: number)
+                }
+                VStack {
+                    PlayerButtonView(number: 3, title: "Silk Stack", isPlaying: audioPlayer.isPlaying[3], action: audioPlayer.play)
+                    if audioPlayer.withEffects {
+                        VStack(spacing: 0) {
+                            FilterView(number: 3, action: audioPlayer.lowPass)
+                            DistortionView(number: 3, action: audioPlayer.distortion)
+                        }
+                    }
+
                 }
             }
 
@@ -91,6 +115,14 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
     }
     @Published var isPlaying = [false, false, false, false]
     private var engines: [AVAudioEngine] = []
+    private var distortion = [false, false, false, false]
+    
+    let withEffects: Bool
+    
+    init(withEffects: Bool = false) {
+        self.withEffects = withEffects
+        super.init()
+    }
     
     func configure() {
         do {
@@ -105,13 +137,19 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
 
     func createEngines() {
         do {
-            self.engines = try Resources.audioFiles.map { try createEngine(resource: $0) }
+            self.engines = try Resources.audioFiles.map {
+                if withEffects {
+                    try createEngineWithEffects(resource: $0)
+                } else {
+                    try createEngine(resource: $0)
+                }
+            }
         } catch {
             print("💀 Error setting up audio session")
         }
     }
     
-    func createEngine(resource: String) throws -> AVAudioEngine {
+    private func createEngine(resource: String) throws -> AVAudioEngine {
 
         guard let url = Bundle.main.url(forResource: resource, withExtension: nil),
               let audioFile = try? AVAudioFile(forReading: url),
@@ -130,12 +168,41 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
         engine.prepare()
         playerNode.scheduleBuffer(buffer, at: nil, options: [.loops])
         
-        playerNode.scheduleFile(audioFile, at: nil)
-        
         try engine.start()
         return engine
     }
-    
+
+    private func createEngineWithEffects(resource: String) throws -> AVAudioEngine {
+
+        guard let url = Bundle.main.url(forResource: resource, withExtension: nil),
+              let audioFile = try? AVAudioFile(forReading: url),
+              let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat,
+                                            frameCapacity: AVAudioFrameCount(audioFile.length))
+        else {
+            throw PlayerError.playerCreation
+        }
+            
+        try audioFile.read(into: buffer)
+
+        let engine = AVAudioEngine()
+        let playerNode = AVAudioPlayerNode()
+        engine.attach(playerNode)
+        let lowPassUnit = attachLowPassFilter(engine: engine)
+        let distortionUnit = attachDistortion(engine: engine)
+        engine.connect(playerNode, to: lowPassUnit, format: audioFile.processingFormat)
+        engine.connect(lowPassUnit, to: distortionUnit, format: audioFile.processingFormat)
+        engine.connect(distortionUnit, to: engine.mainMixerNode, format: audioFile.processingFormat)
+        engine.prepare()
+        playerNode.scheduleBuffer(buffer, at: nil, options: [.loops])
+        
+        try engine.start()
+        
+        distortion(param1: 0, param2: -80, engine: engine)
+        return engine
+    }
+        
+    // MARK: - Play and Stop
+
     func play(play: Bool, player: Int) {
         if play {
             self.play(player: player)
@@ -170,6 +237,77 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
     private func playerNode(from engine: AVAudioEngine) -> AVAudioPlayerNode? {
         engine.attachedNodes.first(where: { $0 is AVAudioPlayerNode}) as? AVAudioPlayerNode
     }
+    
+    // MARK: - Main Mixer
+    
+    func outputVolume(player: Int, volume: Float) {
+        let mainMixer = engines[player].mainMixerNode
+        mainMixer.outputVolume = volume
+    }
+
+    // MARK: - Low Pass Filter Effects
+    
+    private func attachLowPassFilter(engine: AVAudioEngine) -> AVAudioUnitEffect {
+        let lowPassDescription = AudioComponentDescription(componentType: kAudioUnitType_Effect,
+                                                           componentSubType: kAudioUnitSubType_LowPassFilter,
+                                                           componentManufacturer: kAudioUnitManufacturer_Apple,
+                                                           componentFlags: 0, componentFlagsMask: 0)
+        let lowPassUnit = AVAudioUnitEffect(audioComponentDescription: lowPassDescription)
+        engine.attach(lowPassUnit)
+        return lowPassUnit
+    }
+    
+    func lowPass(cutoff: Float, resonance: Float, player: Int) {
+        guard let lowPassUnit = lowPassUnit(from: engines[player]) else { return }
+        AudioUnitSetParameter(lowPassUnit.audioUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoff, 0)
+        AudioUnitSetParameter(lowPassUnit.audioUnit, kLowPassParam_Resonance, kAudioUnitScope_Global, 0, resonance, 0)
+    }
+
+    private func lowPassUnit(from engine: AVAudioEngine) -> AVAudioUnitEffect? {
+        engine.attachedNodes.first(where: {
+            if let effect = $0 as? AVAudioUnitEffect {
+                effect.audioComponentDescription.componentSubType == kAudioUnitSubType_LowPassFilter
+            } else {
+                false
+            }
+        }) as? AVAudioUnitEffect
+    }
+    
+    // MARK: - Distortion Effect
+
+    private func attachDistortion(engine: AVAudioEngine) -> AVAudioUnitEffect {
+        let distortionDescription = AudioComponentDescription(componentType: kAudioUnitType_Effect,
+                                                              componentSubType: kAudioUnitSubType_Distortion,
+                                                              componentManufacturer: kAudioUnitManufacturer_Apple,
+                                                              componentFlags: 0, componentFlagsMask: 0)
+        let distortionUnit = AVAudioUnitEffect(audioComponentDescription: distortionDescription)
+        engine.attach(distortionUnit)
+        return distortionUnit
+    }
+    
+    func distortion(param1: Float, param2: Float, player: Int) {
+        distortion(param1: param1, param2: param2, engine: engines[player])
+    }
+
+    private func distortion(param1: Float, param2: Float, engine: AVAudioEngine) {
+        guard let distortionUnit = distortionUnit(from: engine) else { return }
+        AudioUnitSetParameter(distortionUnit.audioUnit, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, param1, 0)
+        AudioUnitSetParameter(distortionUnit.audioUnit, kDistortionParam_SoftClipGain, kAudioUnitScope_Global, 0, param2, 0)
+    }
+    func distortion(bypass: Bool, player: Int) {
+        guard let distortionUnit = distortionUnit(from: engines[player]) else { return }
+        distortionUnit.bypass = true
+    }
+
+    private func distortionUnit(from engine: AVAudioEngine) -> AVAudioUnitEffect? {
+        engine.attachedNodes.first(where: {
+            if let effect = $0 as? AVAudioUnitEffect {
+                effect.audioComponentDescription.componentSubType == kAudioUnitSubType_Distortion
+            } else {
+                false
+            }
+        }) as? AVAudioUnitEffect
+    }
 }
 
 extension AudioEnginePlayer: AVAudioPlayerDelegate {
@@ -179,5 +317,5 @@ extension AudioEnginePlayer: AVAudioPlayerDelegate {
 }
 
 #Preview {
-    AudioEnginePlayerView()
+    AudioEnginePlayerView(audioPlayer: AudioEnginePlayer())
 }
