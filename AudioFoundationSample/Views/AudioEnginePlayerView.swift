@@ -14,7 +14,7 @@ struct AudioEnginePlayerView: View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 16) {
+            HStack(spacing: 48) {
                 VStack {
                     PlayerButtonView(number: 0, title: "Bass", isPlaying: audioPlayer.isPlaying[0], action: audioPlayer.play)
                     if audioPlayer.withEffects {
@@ -54,7 +54,8 @@ struct AudioEnginePlayerView: View {
                         .foregroundColor(.green)
                 }
             }
-            .padding(.vertical, 42)
+            .padding(.vertical, 12)
+            
 
             HStack(spacing: 48) {
                 VStack {
@@ -80,6 +81,11 @@ struct AudioEnginePlayerView: View {
             }
 
             Spacer()
+//            HStack {
+//                Text("Volume")
+//                Slider(value: $audioPlayer.volume, in: 0...1)
+//            }
+//            .padding(.horizontal, 24)
             HStack {
                 Spacer()
                 Toggle("Use Speaker", isOn: $audioPlayer.useSpeaker)
@@ -111,6 +117,11 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
             }
             configure()
             createEngines()
+        }
+    }
+    @Published var volume: Float = 1 {
+        didSet {
+            engines[0].mainMixerNode.volume = volume
         }
     }
     @Published var isPlaying = [false, false, false, false]
@@ -194,7 +205,6 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
         engine.connect(distortionUnit, to: engine.mainMixerNode, format: audioFile.processingFormat)
         engine.prepare()
         playerNode.scheduleBuffer(buffer, at: nil, options: [.loops])
-        
         try engine.start()
         
         distortion(param1: 0, param2: -80, engine: engine)
@@ -240,11 +250,6 @@ final class AudioEnginePlayer: NSObject, ObservableObject {
     
     // MARK: - Main Mixer
     
-    func outputVolume(player: Int, volume: Float) {
-        let mainMixer = engines[player].mainMixerNode
-        mainMixer.outputVolume = volume
-    }
-
     // MARK: - Low Pass Filter Effects
     
     private func attachLowPassFilter(engine: AVAudioEngine) -> AVAudioUnitEffect {
@@ -317,5 +322,5 @@ extension AudioEnginePlayer: AVAudioPlayerDelegate {
 }
 
 #Preview {
-    AudioEnginePlayerView(audioPlayer: AudioEnginePlayer())
+    AudioEnginePlayerView(audioPlayer: AudioEnginePlayer(withEffects: true))
 }
