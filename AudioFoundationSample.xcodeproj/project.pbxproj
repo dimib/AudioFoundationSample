@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DB624D62BBDB10C00A67462 /* DBAudioTools in Frameworks */ = {isa = PBXBuildFile; productRef = 1DB624D52BBDB10C00A67462 /* DBAudioTools */; };
 		360D97BC2BB6B72200589F76 /* AudioFoundationSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97BB2BB6B72200589F76 /* AudioFoundationSampleApp.swift */; };
 		360D97BE2BB6B72200589F76 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360D97BD2BB6B72200589F76 /* ContentView.swift */; };
 		360D97C02BB6B72500589F76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 360D97BF2BB6B72500589F76 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36DACA272BB83E07009807FE /* DBAudioTools in Frameworks */,
+				1DB624D62BBDB10C00A67462 /* DBAudioTools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +158,7 @@
 			name = AudioFoundationSample;
 			packageProductDependencies = (
 				36DACA262BB83E07009807FE /* DBAudioTools */,
+				1DB624D52BBDB10C00A67462 /* DBAudioTools */,
 			);
 			productName = AudioFoundationSample;
 			productReference = 360D97B82BB6B72200589F76 /* AudioFoundationSample.app */;
@@ -186,7 +189,7 @@
 			);
 			mainGroup = 360D97AF2BB6B72200589F76;
 			packageReferences = (
-				36DACA252BB83E07009807FE /* XCLocalSwiftPackageReference "../../DBAudioTools" */,
+				1DB624D42BBDB10C00A67462 /* XCRemoteSwiftPackageReference "db-audio-tools" */,
 			);
 			productRefGroup = 360D97B92BB6B72200589F76 /* Products */;
 			projectDirPath = "";
@@ -439,14 +442,23 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		36DACA252BB83E07009807FE /* XCLocalSwiftPackageReference "../../DBAudioTools" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../DBAudioTools;
+/* Begin XCRemoteSwiftPackageReference section */
+		1DB624D42BBDB10C00A67462 /* XCRemoteSwiftPackageReference "db-audio-tools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dimib/db-audio-tools.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1DB624D52BBDB10C00A67462 /* DBAudioTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DB624D42BBDB10C00A67462 /* XCRemoteSwiftPackageReference "db-audio-tools" */;
+			productName = DBAudioTools;
+		};
 		36DACA262BB83E07009807FE /* DBAudioTools */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DBAudioTools;

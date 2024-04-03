@@ -1,0 +1,15 @@
+{
+  "originHash" : "5f27869ed800d0b948902c1c8cb7b287d8596a390d3eebed54de4fe7d71bc130",
+  "pins" : [
+    {
+      "identity" : "db-audio-tools",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dimib/db-audio-tools.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "48574bffcd1c3640372325dfc169493e5beedbc7"
+      }
+    }
+  ],
+  "version" : 3
+}
